@@ -1,3 +1,5 @@
+import re
+
 class Customer_manager:
     customers = []  
 
@@ -7,13 +9,17 @@ class Customer_manager:
         self.address = address
         self.phone_number = phone_number
         self.user = user
-        Customer_manager.customers.append(self)
 
     def __str__(self):
         return f"Cliente: {self.name} - Email: {self.email}"
+    
+    def has_email_domain(self):
+        return re.search(r'@[\w.-]+.\w+$', self.email) is not None
 
-    def show_contact_info(self):
-        print(f"{self.name} - Tel: {self.phone_number} | Dirección: {self.address}")
+    @classmethod
+    def show_contact_info(cls):
+        for customer in cls.customers:
+            print(f"{customer.name} - Tel: {customer.phone_number} | Dirección: {customer.address}")
 
     @classmethod
     def create_customer(cls, user):
@@ -25,6 +31,7 @@ class Customer_manager:
         new_customer = cls(name, email, address, phone, user)
         cls.customers.append(new_customer)
         print(f"Cliente'{name}' creado y asociado al usuario '{user}'")
+        return new_customer
    
 
 

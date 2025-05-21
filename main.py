@@ -22,12 +22,15 @@ def main():
                     print("\n*** MENÚ CLIENTE ***")
                     print("1. Crear cliente")
                     print("2. Ver clientes")
-                    print("3. Ver datos")
+                    print("3. Ver dato de contacto")
                     print("4. Volver al menú principal")
                     opcion_cliente = input("Elige una opción: ")
 
                     if opcion_cliente == "1":
-                        Customer_manager.create_customer(logged_user)
+                        customer = Customer_manager.create_customer(logged_user)
+                        if customer:
+                            if not customer.has_email_domain():
+                                print("Ojo: el correo no es válido.")
                     elif opcion_cliente == "2":
                         Customer_manager.list_customers()
                     elif opcion_cliente == "3":
